@@ -2,9 +2,9 @@ import React, { Fragment } from "react";
 import { withRenderer } from "../../felaContext";
 import { fieldRule, labelRule } from "./Field.rule";
 
-function Field({ label, type = 'text', value, onChange, onBlur, renderer }) {
-  const labelClassName = renderer.renderRule(labelRule);
-  const fieldClassName = renderer.renderRule(fieldRule);
+function Field({ label, type = 'text', value, onChange, onBlur, renderer, renderRule }) {
+  const labelClassName = renderRule(renderer, labelRule);
+  const fieldClassName = renderRule(renderer, fieldRule);
 
   return (
     <Fragment>

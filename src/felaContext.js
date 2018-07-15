@@ -1,4 +1,5 @@
 import React from "react";
+import renderRule from "./renderRule";
 
 const { Provider, Consumer } = React.createContext("fela");
 
@@ -6,7 +7,7 @@ export const FelaProvider = Provider;
 export function withRenderer(Component) {
   const WrappedComponent = (props) => (
       <Consumer>
-        {renderer => <Component {...props} renderer={renderer} />}
+        {renderer => <Component {...props} renderer={renderer} renderRule={renderRule}/>}
       </Consumer>
   );
 

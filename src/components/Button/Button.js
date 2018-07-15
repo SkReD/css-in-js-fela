@@ -2,13 +2,15 @@ import React, { PureComponent } from "react";
 import pt from "prop-types";
 import { withRenderer } from "../../felaContext";
 import { buttonRule } from "./Button.rule";
+import renderRule from "../../renderRule";
 
 export class Button extends PureComponent {
   static propTypes = {
     caption: pt.string.isRequired,
     color: pt.string,
     disabled: pt.bool,
-    renderer: pt.object.isRequired
+    renderer: pt.object.isRequired,
+    renderRule: pt.func.isRequired
   };
 
   static defaultProps = {
@@ -17,15 +19,15 @@ export class Button extends PureComponent {
   };
 
   render() {
-    const { color, disabled } = this.props;
+    const { caption, color, disabled, renderer, renderRule } = this.props;
     return (
       <button
-        className={this.props.renderer.renderRule(buttonRule, {
+        className={renderRule(renderer, buttonRule, {
           color,
           disabled
         })}
       >
-        {this.props.caption}
+        {caption}
       </button>
     );
   }

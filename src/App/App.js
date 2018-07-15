@@ -15,6 +15,8 @@ import memoize from "memoize-one";
 import { render as renderFela, renderToMarkup } from "fela-dom";
 import Editor from "../components/Editor/Editor";
 import Field from "../components/Field/Field";
+import renderRule from './../renderRule';
+import {resetCache} from "../renderRule";
 
 export class App extends PureComponent {
   state = {
@@ -40,7 +42,7 @@ export class App extends PureComponent {
       return createRenderer({
         enhancers: [
           monolithic({
-            prettySelectors
+            prettySelectors,
           })
         ]
       });
@@ -75,23 +77,26 @@ export class App extends PureComponent {
     this.updateStyles();
   }
 
-  componentDidUpdate() {
-    this.updateStyles();
+  componentDidUpdate(prevProps, prevState) {
+    this.updateStyles(prevState);
   }
 
-  updateStyles() {
+  updateStyles(prevState = {}) {
     const currentCss = renderToMarkup(this.state.renderer);
     if (this.resultCss !== currentCss) {
-      renderFela(this.state.renderer);
+      if (prevState.renderer !== this.state.renderer) {
+        resetCache();
+        renderFela(this.state.renderer);
+      }
       this.setState({ resultCss: currentCss });
     }
   }
 
   render() {
     const { renderer } = this.state;
-    const controlsPanelClassName = renderer.renderRule(controlsPanelRule);
-    const cssResultClassName = renderer.renderRule(cssResultRule);
-    const rootClassName = renderer.renderRule(rootRule);
+    const controlsPanelClassName = renderRule(renderer, controlsPanelRule);
+    const cssResultClassName = renderRule(renderer, cssResultRule);
+    const rootClassName = renderRule(renderer, rootRule);
 
     return (
       <FelaProvider value={renderer}>

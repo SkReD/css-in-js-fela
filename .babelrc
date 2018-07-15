@@ -1,5 +1,14 @@
 {
+  "plugins": [
+    "transform-class-properties"
+  ],
   "presets": [
-    "react"
+    "react",
+    "stage-2",
+    ["env", {
+      "targets": {
+        "node": "8.11.3"
+      }
+    }]
   ]
 }

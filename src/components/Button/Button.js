@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import pt from "prop-types";
 import { withRenderer } from "../../felaContext";
 import { buttonRule } from "./Button.rule";
-import renderRule from "../../renderRule";
 
 export class Button extends PureComponent {
   static propTypes = {
@@ -19,10 +18,10 @@ export class Button extends PureComponent {
   };
 
   render() {
-    const { caption, color, disabled, renderer, renderRule } = this.props;
+    const { caption, color, disabled, renderRule } = this.props;
     return (
       <button
-        className={renderRule(renderer, buttonRule, {
+        className={renderRule(buttonRule, {
           color,
           disabled
         })}

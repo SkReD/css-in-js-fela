@@ -7,7 +7,7 @@ export const FelaProvider = Provider;
 export function withRenderer(Component) {
   const WrappedComponent = (props) => (
       <Consumer>
-        {renderer => <Component {...props} renderer={renderer} renderRule={renderRule}/>}
+        {renderer => <Component {...props} renderer={renderer} renderRule={renderRule.bind(null, renderer)}/>}
       </Consumer>
   );
 

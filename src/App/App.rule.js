@@ -16,6 +16,11 @@ export function rootRule() {
   return {
     display: 'flex',
     flexDirection: 'row',
-    padding: '20px 30px'
+    padding: '20px 30px',
+
+    '& button': {
+      width: '150px',
+      height: '40px'
+    }
   }
 }
